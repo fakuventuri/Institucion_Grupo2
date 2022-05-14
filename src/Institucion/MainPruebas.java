@@ -2,6 +2,7 @@ package Institucion;
 
 import Institucion.controlador.AlumnoData;
 import Institucion.controlador.Conexion;
+import Institucion.controlador.InscripcionData;
 import Institucion.controlador.MateriaData;
 import Institucion.modelo.Alumno;
 import Institucion.modelo.Inscripcion;
@@ -14,27 +15,37 @@ public class MainPruebas {
         Conexion con = new Conexion();
         AlumnoData ad = new AlumnoData(con);
         MateriaData md = new MateriaData(con);
+        InscripcionData inscDat = new InscripcionData(con);
 
-        Alumno a = new Alumno(15, "Venturi", "Facundo", LocalDate.now(), true);
-        Alumno b = new Alumno("Coria", "Agustin", LocalDate.now(), true);
+        Alumno a = new Alumno("Venturi Coria", "Facundo Agustin", LocalDate.of(2000, 11, 20), true);
+        Alumno b = new Alumno(6, "Infante", "Macarena", LocalDate.now(), true);
 
         //ad.insertAlumno(a);
         //ad.insertAlumno(b);
         
         //ad.deleteAlumno(a);
         
-        //System.out.println(ad.listarAlumnos().toString());
+        //ad.updateAlumno(5, a);
         
-        Materia m = new Materia("Web", 1, true);
+        //System.out.println(ad.listarAlumnos());
         
-        md.insertMateria(m);
+        Materia m = new Materia(2, "Desarrollo Web", 1, true);
+        
+        //md.insertMateria(m);
         //md.insertMateria(m);
         
-        //System.out.println(md.listarMaterias().toString());
+        //md.updateMateria(2, m);
+        
+        //System.out.println(md.listarMaterias());
 
-        /*Inscripcion i = new Inscripcion(m, a, 9);
+        Inscripcion i = new Inscripcion(m, b, 4);
+        
+        //inscDat.insertInscripcion(i);
+        System.out.println(inscDat.getMateriasDeAlumno(6));
+        
+        //inscDat.setNota(1, 4);
 
-        System.out.println(a);
+        /*System.out.println(a);
         System.out.println(m);
         System.out.println(i);
         i.setNota(10);

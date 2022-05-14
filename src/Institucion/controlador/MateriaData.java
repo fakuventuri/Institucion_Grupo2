@@ -2,6 +2,7 @@ package Institucion.controlador;
 
 import Institucion.modelo.Materia;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,6 +89,26 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Error de conexion");
         }
         return materias;
+    }
+    
+    public boolean updateMateria(int idMateria, Materia materia){
+        String sql = "UPDATE materia SET nombre=?, anioMateria=?, activo=? WHERE idMateria = ?";
+
+        try {
+            //ResultSet rs;
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setString(1, materia.getNombre());
+                ps.setInt(2, materia.getAnioMateria());
+                ps.setBoolean(3, materia.isActivo());
+                ps.setInt(4, idMateria);
+                ps.executeUpdate();
+                return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+            return false;
+        }
     }
 
 }
