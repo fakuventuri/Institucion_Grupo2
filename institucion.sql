@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-05-2022 a las 02:07:00
+-- Tiempo de generación: 14-05-2022 a las 21:21:46
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.29
 
@@ -57,7 +57,7 @@ CREATE TABLE `inscripcion` (
 CREATE TABLE `materia` (
   `idMateria` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
-  `añoMateria` int(11) NOT NULL,
+  `anioMateria` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -105,7 +105,7 @@ ALTER TABLE `inscripcion`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `idMateria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idMateria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
