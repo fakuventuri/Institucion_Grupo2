@@ -2,14 +2,12 @@ package Institucion.controlador;
 
 import Institucion.modelo.Materia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import tp_transversal.Conexion;
 
 public class MateriaData {
 
@@ -31,14 +29,14 @@ public class MateriaData {
             ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setString(1, materia.getNombre());
-                ps.setDate(2, Date.valueOf(materia.getAnioMateria()));
+                ps.setInt(2, materia.getAnioMateria());
                 ps.setBoolean(3, materia.isActivo());
                 ps.executeUpdate();
                 rs = ps.getGeneratedKeys();
             }
 
             if (rs.next()) {
-                alumno.setIdMateria(rs.getInt(1));
+                materia.setIdMateria(rs.getInt(1));
                 return true;
             } else {
                 return false;
@@ -82,7 +80,7 @@ public class MateriaData {
 
                 materia.setIdMateria(rs.getInt(1));
                 materia.setNombre(rs.getString(2));
-                materia.setAnioMateria(rs.getDate(3).toLocalDate());
+                materia.setAnioMateria(rs.getInt(3));
                 materia.setActivo(rs.getBoolean(4));
                 materias.add(materia);
             }
