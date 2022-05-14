@@ -85,7 +85,7 @@ public class InscripcionData {
     }
     
     public ArrayList<Alumno> getAlumnosEnMateria(int idMateria) {
-        String sql = "SELECT a.* FROM alumno a, materia m, inscripcion i WHERE i.idMateria = m.idMateria AND a.idAlumno = i.idAlumno AND i.idMateria = ?";
+        String sql = "SELECT a.* FROM alumno a, materia m, inscripcion i WHERE i.idMateria = m.idMateria AND a.idAlumno = i.idAlumno AND i.idMateria = ? AND a.activo = 1 AND m.activo = 1";
 
         ArrayList<Alumno> alumnosEnMateria = new ArrayList<>();
 

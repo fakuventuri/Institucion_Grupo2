@@ -48,13 +48,12 @@ public class MateriaData {
     }
 
     public boolean deleteMateria(int idMateria) {
-        String sql = "UPDATE materia SET activo=? WHERE ?";
+        String sql = "UPDATE materia SET activo = 0 WHERE idMateria = ?";
 
         try {
             ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setBoolean(1, false);
-                ps.setInt(2, idMateria);
+                ps.setInt(1, idMateria);
                 ps.executeUpdate();
                 return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
             }
@@ -66,7 +65,7 @@ public class MateriaData {
     }
 
     public ArrayList<Materia> listarMaterias() {
-        String sql = "SELECT * FROM materia";
+        String sql = "SELECT * FROM materia WHERE activo = 1";
 
         ArrayList<Materia> materias = new ArrayList<>();
 

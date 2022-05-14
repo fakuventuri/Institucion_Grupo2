@@ -50,13 +50,12 @@ public class AlumnoData {
     }
 
     public boolean deleteAlumno(int idAlumno) {
-        String sql = "UPDATE alumno SET activo=? WHERE ?";
+        String sql = "UPDATE alumno SET activo = 0 WHERE idAlumno = ?";
 
         try {
             ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setBoolean(1, false);
-                ps.setInt(2, idAlumno);
+                ps.setInt(1, idAlumno);
                 ps.executeUpdate();
                 return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
             }
@@ -68,7 +67,7 @@ public class AlumnoData {
     }
 
     public ArrayList<Alumno> listarAlumnos() {
-        String sql = "SELECT * FROM alumno";
+        String sql = "SELECT * FROM alumno WHERE activo = 1";
 
         ArrayList<Alumno> alumnos = new ArrayList<>();
 
