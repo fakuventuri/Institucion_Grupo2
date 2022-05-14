@@ -49,17 +49,16 @@ public class AlumnoData {
         }
     }
 
-    public boolean deleteAlumno(Alumno alumno) {
+    public boolean deleteAlumno(int idAlumno) {
         String sql = "UPDATE alumno SET activo=? WHERE ?";
 
         try {
             ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                //alumno.setActivo(false);
                 ps.setBoolean(1, false);
-                ps.setInt(2, alumno.getIdAlumno());
+                ps.setInt(2, idAlumno);
                 ps.executeUpdate();
-                return true; // faltaa hacer que retorne true solo si encontro y pudo modificar el alumno
+                return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
             }
 
         } catch (SQLException ex) {
