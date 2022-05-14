@@ -5,7 +5,7 @@ Lab 1 2022
 Grupo: <br>
 -Facundo Agustin Venturi Coria<br>
 -Macarena Yamila Infante<br>
--Pablo Ezequiel Tripicchio<br>
+-Pablo Ezequiel Tripicchio @pabloezetri <br>
 <br>
 # UML
 
