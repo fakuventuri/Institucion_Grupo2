@@ -9,7 +9,7 @@ Grupo: <br>
 <br>
 # UML
 
-![image](https://github.com/fakuventuri/Institucion_Grupo2/blob/pruebas-readme/Institucion_Grupo2_UML.png?raw=true)
+![image](https://github.com/fakuventuri/Institucion_Grupo2/blob/master/Institucion_Grupo2_UML.png?raw=true)
 
 # Esquema de base de datos
-![image](https://github.com/fakuventuri/Institucion_Grupo2/blob/pruebas-readme/institucion_Grupo2_BaseDeDatos.png?raw=true)
+![image](https://github.com/fakuventuri/Institucion_Grupo2/blob/master/institucion_Grupo2_BaseDeDatos.png?raw=true)
