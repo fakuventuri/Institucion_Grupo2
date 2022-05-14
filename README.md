@@ -2,7 +2,7 @@
 Sistema de gestión para Institución con base de datos
 Lab 1 2022
 
-Grupo:
--Facundo Agustin Venturi Coria
--Macarena Yamila Infante
--Pablo Ezequiel Tripicchio
+Grupo: <br>
+-Facundo Agustin Venturi Coria<br>
+-Macarena Yamila Infante<br>
+-Pablo Ezequiel Tripicchio<br>
