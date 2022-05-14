@@ -21,7 +21,7 @@ public class MainPruebas {
         
         //ad.deleteAlumno(a);
         
-        //System.out.println(ad.listarAlumnos().toString
+        //System.out.println(ad.listarAlumnos().toString());
         
         Materia m = new Materia("Lab", 1, true);
 
