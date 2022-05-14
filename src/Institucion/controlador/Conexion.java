@@ -4,10 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- *
- * @author OzKuro
- */
 public class Conexion {
 
     private String url = "jdbc:mysql://localhost/institucion";
@@ -28,8 +24,8 @@ public class Conexion {
     public Connection getConexion() throws SQLException {
         if (conexion == null) {
             conexion = DriverManager
-                    .getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC" 
-                            + "&user=" + usuario 
+                    .getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC"
+                            + "&user=" + usuario
                             + "&password=" + password);
         }
         return conexion;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Institucion.controlador;
 
 import Institucion.modelo.Alumno;
@@ -15,10 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author OzKuro
- */
 public class AlumnoData {
 
     private Connection con = null;
@@ -81,7 +72,7 @@ public class AlumnoData {
         String sql = "SELECT * FROM alumno";
 
         ArrayList<Alumno> alumnos = new ArrayList<>();
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();

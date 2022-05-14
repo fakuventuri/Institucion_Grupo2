@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Institucion.modelo;
 
-/**
- *
- * @author OzKuro
- */
 public class Inscripcion {
+
     private int idInscripcion = -1;
     private Materia materia;
     private Alumno alumno;
@@ -68,6 +60,4 @@ public class Inscripcion {
         return "Inscripcion " + idInscripcion + ": " + alumno.getApellido() + " " + alumno.getNombre() + " inscripto en " + materia.getNombre() + " " + materia.getAnioMateria() + ", con la nota: " + nota;
     }
 
-    
-    
 }
