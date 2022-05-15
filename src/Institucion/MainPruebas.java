@@ -60,6 +60,8 @@ public class MainPruebas {
         System.out.println(i);
         i.setNota(10);
         System.out.println(i);*/
+        
+        //Maqi sin U
 
     }
 
