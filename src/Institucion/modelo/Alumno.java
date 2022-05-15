@@ -23,6 +23,8 @@ public class Alumno {
         this.nombre = nombre;
         this.fechaNac = fechaNac;
         this.activo = Activo;
+        
+        //hola
     }
 
     public Alumno() {
