@@ -72,8 +72,8 @@ public class InscripcionData {
         try {
             //ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setDouble(1, nota);
-                ps.setInt(2, idInscripcion);
+                ps.setDouble(2, nota);
+                ps.setInt(1, idInscripcion);
                 ps.executeUpdate();
                 return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
             }
@@ -140,4 +140,49 @@ public class InscripcionData {
         }
         return materiasDeAlumno;
     }
+    
+    
+    public ArrayList<Alumno> getAlumnosNoInscrptos(int idAlumno) {
+        String sql = "SELECT `idMateria`, `nombre`, `anioMateria`, `activo` FROM `materia m , inscripcion i` WHERE idMateria NOT in (select m.idMateria from inscripcion i, materia m where i.idMateria = m.idMateria and i.idAlumno = ?)";
+                ArrayList<Alumno> alumnosNoInscriptos = new ArrayList<>();
+
+        try {
+            ResultSet rs;
+            try (PreparedStatement ps = con.prepareStatement(sql)) {
+                ps.setInt(1, idAlumno);
+                rs = ps.executeQuery();
+            }
+            
+            while (rs.next()) {
+                Alumno alumno = new Alumno();
+
+                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setApellido(rs.getString(2));
+                alumno.setNombre(rs.getString(3));
+                alumno.setFechaNac(rs.getDate(4).toLocalDate());
+                alumno.setActivo(rs.getBoolean(5));
+                alumnosNoInscriptos.add(alumno);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+        }
+        return alumnosNoInscriptos;
+}
+    
+    public void borrarInscripcionDeUnAlumnoDeUnaMateria(int idAlumno, int idMateria){
+        try {
+            String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
+            
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                ps.setDouble(1, idAlumno);
+                ps.setInt(2, idMateria);
+                ps.executeUpdate();
+            
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+        }
+    }
+    
+    
 }
