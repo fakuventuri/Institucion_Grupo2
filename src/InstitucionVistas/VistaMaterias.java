@@ -5,11 +5,13 @@
  */
 package InstitucionVistas;
 
+import Institucion.controlador.Conexion;
 import Institucion.controlador.MateriaData;
 import Institucion.modelo.Materia;
 import java.util.ArrayList;
 import java.util.Objects;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -19,6 +21,7 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     
     private ArrayList<Materia> materias;
     private MateriaData materiaData;
+    Conexion conexion = new Conexion();
 
     /**
      * Creates new form VistaMaterias
@@ -75,6 +78,12 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("Nombre:");
 
+        textNombreMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNombreMateriaActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("Año:");
@@ -90,7 +99,6 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         botonGuardar.setForeground(new java.awt.Color(0, 0, 153));
         botonGuardar.setText("Guardar");
         botonGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonGuardar.setEnabled(false);
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarActionPerformed(evt);
@@ -101,7 +109,6 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         botonActualizar.setForeground(new java.awt.Color(0, 0, 153));
         botonActualizar.setText("Actualizar");
         botonActualizar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonActualizar.setEnabled(false);
         botonActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonActualizarActionPerformed(evt);
@@ -112,7 +119,6 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         botonBorrar.setForeground(new java.awt.Color(0, 0, 153));
         botonBorrar.setText("Borrar");
         botonBorrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonBorrar.setEnabled(false);
         botonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBorrarActionPerformed(evt);
@@ -250,17 +256,16 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         // TODO add your handling code here:
-        
-        int id = Integer.parseInt(textCodigoIdMateria.getText());
-        String nombre = textNombreMateria.getText();
-        int anio = Integer.parseInt(textAnioMateria.getText());
-        boolean activo = checkBoxActiva.isSelected() ;
-        
-        
-         Materia materia1 = new Materia(id, nombre, anio,activo);
-         materias.add(materia1); 
-         materiaData.insertMateria(materia1);
-         JOptionPane.showMessageDialog(this, "Materia agregada correctamente");
+                
+         MateriaData md = new MateriaData(conexion);
+        if (!"".equals(textNombreMateria.getText()) && !"".equals(textAnioMateria.getText()) && checkBoxActiva.isSelected()) {
+            Materia materia = new Materia(textNombreMateria.getText(), Integer.parseInt(textAnioMateria.getText()), checkBoxActiva.isSelected());
+            md.insertMateria(materia);
+            textCodigoIdMateria.setText(Integer.toString(materia.getIdMateria()));
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Revise los campos ingresados");
+        }
         
     }//GEN-LAST:event_botonGuardarActionPerformed
 
@@ -303,8 +308,16 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 
+    private void textNombreMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNombreMateriaActionPerformed
+        // TODO add your handling code here:
+               
+        
+        
+        
+    }//GEN-LAST:event_textNombreMateriaActionPerformed
 
-    void limpiar(){
+
+    private void limpiar(){
     
     textCodigoIdMateria.setText("");
     textNombreMateria.setText("");
@@ -313,6 +326,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     
     }
     
+
+    
+
+
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar;

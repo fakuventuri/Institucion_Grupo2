@@ -37,6 +37,7 @@ public class MateriaData {
 
             if (rs.next()) {
                 materia.setIdMateria(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Materia agregada correctamente");
                 return true;
             } else {
                 return false;
@@ -45,6 +46,7 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null, "Error de conexion");
             return false;
         }
+      
     }
 
     public boolean deleteMateria(int idMateria) {
