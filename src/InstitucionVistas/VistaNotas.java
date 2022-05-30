@@ -73,6 +73,12 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Alumno");
 
+        cbAlumnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlumnosActionPerformed(evt);
+            }
+        });
+
         tablaMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -170,6 +176,28 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_botonCancelarActionPerformed
+
+    private void cbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlumnosActionPerformed
+        // TODO add your handling code here:
+        
+        InscripcionData id = new InscripcionData(conexion);
+        inscripciones = id.listarInscripcionesXAlumno(((Alumno) cbAlumnos.getSelectedItem()).getIdAlumno());
+
+        DefaultTableModel model = (DefaultTableModel) tablaMaterias.getModel();
+        model.setRowCount(0);
+
+        if (!inscripciones.isEmpty()) {
+            for (Inscripcion i1 : inscripciones) {
+
+                model.addRow(new Object[]{i1.getMateria().getIdMateria(), i1.getMateria().getNombre(), i1.getNota()});
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "El alumno no posee inscripciones");
+        }
+        
+        
+    }//GEN-LAST:event_cbAlumnosActionPerformed
 
 
     

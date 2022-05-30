@@ -92,31 +92,32 @@ public class AlumnoData {
         return alumnos;
     }
     
-    public ArrayList<Alumno> buscarAlumnos(String apellido) {
-        String sql = "SELECT * FROM alumno WHERE apellido LIKE ?";
+    public Alumno buscarAlumno(int idAlumno) {
+        Alumno alumno = null;
+        String sql = "SELECT * FROM alumno WHERE idAlumnoo LIKE ?";
 
         ArrayList<Alumno> alumnos = new ArrayList<>();
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, apellido);
+            ps.setInt(1, idAlumno);
             ResultSet rs = ps.executeQuery();
             ps.close();
             while (rs.next()) {
-                Alumno alumno = new Alumno();
+                alumno = new Alumno();
 
                 alumno.setIdAlumno(rs.getInt(1));
                 alumno.setApellido(rs.getString(2));
                 alumno.setNombre(rs.getString(3));
                 alumno.setFechaNac(rs.getDate(4).toLocalDate());
                 alumno.setActivo(rs.getBoolean(5));
-                alumnos.add(alumno);
+                
             }
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de conexion");
         }
-        return alumnos;
+        return alumno;
     }
     
     public boolean updateAlumno(int idAlumno, Alumno alumno){

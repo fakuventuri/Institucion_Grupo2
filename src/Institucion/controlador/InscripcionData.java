@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class InscripcionData {
 
     private Connection con = null;
+    Conexion conexion;
 
     public InscripcionData(Conexion conexion) {
         try {
@@ -184,6 +185,60 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error de conexion");
         }
     }
+    
+    public ArrayList<Inscripcion> listarInscripcionesXAlumno(int idAlumno){    
+      
+
+        ArrayList<Inscripcion> inscripciones = new ArrayList<>();
+
+        try {
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?;";
+
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, idAlumno);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            Inscripcion inscripcion;
+
+            while (resultSet.next()) {
+
+                inscripcion = new Inscripcion();
+                inscripcion.setIdInscripcion(resultSet.getInt("idInscripcion"));
+
+                Alumno a = buscarAlumno(resultSet.getInt("idAlumno"));
+                inscripcion.setAlumno(a);
+
+                Materia m = buscarMateria(resultSet.getInt("idMateria"));
+                inscripcion.setMateria(m);
+                inscripcion.setNota(resultSet.getInt("nota"));
+
+                inscripciones.add(inscripcion);
+            }
+            statement.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener los alumnos: " + ex.getMessage());
+        }
+
+        return inscripciones;
+    
+        
+    }
+    
+    
+        public Alumno buscarAlumno(int idAlumno) {
+
+            AlumnoData ad = new AlumnoData(conexion);
+            return ad.buscarAlumno(idAlumno);
+
+        }
+
+        public Materia buscarMateria(int idMateria) {
+
+            MateriaData md = new MateriaData(conexion);
+            return md.buscarMateriaPorId(idMateria);
+
+        }
     
     
 }
