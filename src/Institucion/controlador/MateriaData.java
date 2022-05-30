@@ -108,5 +108,36 @@ public class MateriaData {
             return false;
         }
     }
+    
+    
+            public Materia buscarMateriaPorId(int idMateria) {
+                
+               Materia materia = null; 
+                String sql = "SELECT * FROM materia WHERE idMateria LIKE ?";
+
+            
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+            ResultSet rs = ps.executeQuery();
+            ps.close();
+            while (rs.next()) {
+                materia = new Materia();
+
+                materia.setIdMateria(rs.getInt(1));
+                materia.setNombre(rs.getString(2));
+                materia.setAnioMateria(rs.getInt(3));
+                materia.setActivo(rs.getBoolean(4));
+                
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+        }
+        return materia;
+
+}
+    
 
 }

@@ -139,5 +139,36 @@ public class AlumnoData {
             return false;
         }
     }
+    
+    
+        public Alumno buscarAlumnoPorId(int idAlumno) {
+            
+            Alumno alumno = null;
+            
+        String sql = "SELECT * FROM alumno WHERE idAlumno LIKE ?";
 
+        ArrayList<Alumno> alumnos = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+            ps.close();
+            while (rs.next()) {
+                alumno = new Alumno();
+
+                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setApellido(rs.getString(2));
+                alumno.setNombre(rs.getString(3));
+                alumno.setFechaNac(rs.getDate(4).toLocalDate());
+                alumno.setActivo(rs.getBoolean(5));
+                alumnos.add(alumno);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+        }
+        return alumno;
+
+}
 }

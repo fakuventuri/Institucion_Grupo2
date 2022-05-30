@@ -66,14 +66,15 @@ public class InscripcionData {
         }
     }
 
-    public boolean setNota(int idInscripcion, double nota) {
-        String sql = "UPDATE inscripcion SET nota=? WHERE idInscripcion=?";
+    public boolean setNota(int idAlumno, int idMateria, double nota) {
+        String sql = "UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
 
         try {
             //ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
-                ps.setDouble(2, nota);
-                ps.setInt(1, idInscripcion);
+                ps.setDouble(1, nota);
+                ps.setInt(2, idAlumno);
+                ps.setInt(3, idMateria);
                 ps.executeUpdate();
                 return true; // falta hacer que retorne true solo si encontro y pudo modificar el alumno
             }
