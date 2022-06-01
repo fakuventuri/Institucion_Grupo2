@@ -6,7 +6,6 @@
 package InstitucionVistas;
 
 import Institucion.controlador.AlumnoData;
-import Institucion.controlador.Conexion;
 import Institucion.modelo.Alumno;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     
     private final ArrayList<Alumno> alumnos;
     private AlumnoData alumnoData;
-    Conexion conexion = new Conexion();
 
     /**
      * Creates new form VistaAlumnos
@@ -30,7 +28,6 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     public VistaAlumnos(ArrayList<Alumno> alumnos) {
         initComponents();
         this.alumnos = alumnos;
-        this.alumnoData = new AlumnoData(conexion);
     }
 
     /**
@@ -244,14 +241,9 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
 
-        int id=-1;
+        int id = Integer.parseInt(textLegajoAlumno.getText());
         
-        try {
-            id = Integer.parseInt(textLegajoAlumno.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El legajo debe ser numérico");
-            textLegajoAlumno.requestFocus();
-        }
+        
         
             Alumno encontrado = new Alumno();
             encontrado = alumnoData.buscarAlumnoPorId(id);

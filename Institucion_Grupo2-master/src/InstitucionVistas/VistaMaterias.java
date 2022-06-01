@@ -30,7 +30,6 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     public VistaMaterias(ArrayList<Materia> materias) {
         initComponents();
         this.materias = materias;
-        materiaData = new MateriaData(conexion);
     }
 
     /**
@@ -226,16 +225,11 @@ public class VistaMaterias extends javax.swing.JInternalFrame {
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
 
-        int id = -1;
+        int id = Integer.parseInt(textCodigoIdMateria.getText());
         
-        try {
-             id = Integer.parseInt(textCodigoIdMateria.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "El codigo debe ser numérico");
-            textCodigoIdMateria.requestFocus();
-        }
         
-        Materia encontrada = null;
+        
+        Materia encontrada = new Materia();
         encontrada = materiaData.buscarMateriaPorId(id);
         
     if (!Objects.isNull(encontrada)) {

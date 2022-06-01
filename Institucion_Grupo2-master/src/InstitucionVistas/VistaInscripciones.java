@@ -137,11 +137,6 @@ public class VistaInscripciones extends javax.swing.JInternalFrame {
         botonSalir.setForeground(new java.awt.Color(0, 0, 153));
         botonSalir.setText("Salir");
         botonSalir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,8 +207,8 @@ public class VistaInscripciones extends javax.swing.JInternalFrame {
         
         rbNoInscriptas.setSelected(false);
         cargarInscriptas();
-        botonAnular.setEnabled(true);
-        botonInscribir.setEnabled(false);
+        botonAnular.setEnabled(false);
+        botonInscribir.setEnabled(true);
         
     }//GEN-LAST:event_rbInscriptasActionPerformed
 
@@ -222,8 +217,8 @@ public class VistaInscripciones extends javax.swing.JInternalFrame {
         
         rbInscriptas.setSelected(false);
         cargarNoInscriptas();
-        botonAnular.setEnabled(false);
-        botonInscribir.setEnabled(true);
+        botonAnular.setEnabled(true);
+        botonInscribir.setEnabled(false);
         
     }//GEN-LAST:event_rbNoInscriptasActionPerformed
 
@@ -279,23 +274,7 @@ public class VistaInscripciones extends javax.swing.JInternalFrame {
 
     private void cbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlumnosActionPerformed
         // TODO add your handling code here:
-        
-        DefaultTableModel model;
-        model = (DefaultTableModel) tablaMaterias.getModel();
-        model.setRowCount(0);
-        if (rbInscriptas.isSelected()) {
-            cargarInscriptas();
-        } else if (rbNoInscriptas.isSelected()){
-            cargarNoInscriptas();
-        }
-        
     }//GEN-LAST:event_cbAlumnosActionPerformed
-
-    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        // TODO add your handling code here:
-        
-        dispose();
-    }//GEN-LAST:event_botonSalirActionPerformed
 
     
     private void cargarAlumnos(){
@@ -343,12 +322,11 @@ public class VistaInscripciones extends javax.swing.JInternalFrame {
 
     
     private void cargarNoInscriptas(){
-        
         borrarFilasTabla();
         
        Alumno seleccionado = (Alumno)cbAlumnos.getSelectedItem();
        
-       ArrayList<Materia> lista = (ArrayList)inscripcionData.getMateriasNoInscriptas(seleccionado.getIdAlumno());
+       ArrayList<Materia> lista = (ArrayList)inscripcionData.getAlumnosNoInscrptos(seleccionado.getIdAlumno());
     
        for(Materia m:lista){
         

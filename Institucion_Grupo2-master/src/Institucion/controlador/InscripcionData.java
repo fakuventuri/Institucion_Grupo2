@@ -144,33 +144,33 @@ public class InscripcionData {
     }
     
     
-    public ArrayList<Materia> getMateriasNoInscriptas(int idAlumno) {
-        String sql = "SELECT materia.idMateria, nombre, anioMateria, activo FROM materia , inscripcion WHERE materia.idMateria NOT in (select m.idMateria from inscripcion i, materia m where i.idMateria = m.idMateria and i.idAlumno = ?);";
-                ArrayList<Materia> materiasNoInscriptas = new ArrayList<>();
+    public ArrayList<Alumno> getAlumnosNoInscrptos(int idAlumno) {
+        String sql = "SELECT `idMateria`, `nombre`, `anioMateria`, `activo` FROM `materia m , inscripcion i` WHERE idMateria NOT in (select m.idMateria from inscripcion i, materia m where i.idMateria = m.idMateria and i.idAlumno = ?)";
+                ArrayList<Alumno> alumnosNoInscriptos = new ArrayList<>();
 
         try {
             ResultSet rs;
             try (PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setInt(1, idAlumno);
                 rs = ps.executeQuery();
-                }
-            
-                while (rs.next()) {
-                    Materia materia = new Materia();
-
-                    materia.setIdMateria(rs.getInt(1));
-                    materia.setNombre(rs.getString(2));
-                    materia.setAnioMateria(rs.getInt(3));
-                    materia.setActivo(rs.getBoolean(4));
-                    materiasNoInscriptas.add(materia);
-                }
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Sintaxis incorrecta de consulta");
             }
-        return materiasNoInscriptas;
+            
+            while (rs.next()) {
+                Alumno alumno = new Alumno();
+
+                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setApellido(rs.getString(2));
+                alumno.setNombre(rs.getString(3));
+                alumno.setFechaNac(rs.getDate(4).toLocalDate());
+                alumno.setActivo(rs.getBoolean(5));
+                alumnosNoInscriptos.add(alumno);
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de conexion");
+        }
+        return alumnosNoInscriptos;
 }
-    
     
     public void borrarInscripcionDeUnAlumnoDeUnaMateria(int idAlumno, int idMateria){
         try {
@@ -209,7 +209,7 @@ public class InscripcionData {
                 Alumno a = buscarAlumno(resultSet.getInt("idAlumno"));
                 inscripcion.setAlumno(a);
 
-                Materia m = buscarMateriaPorId(resultSet.getInt("idMateria"));
+                Materia m = buscarMateria(resultSet.getInt("idMateria"));
                 inscripcion.setMateria(m);
                 inscripcion.setNota(resultSet.getInt("nota"));
 
@@ -226,76 +226,19 @@ public class InscripcionData {
     }
     
     
-      /*  public Alumno buscarAlumno(int idAlumno) {
+        public Alumno buscarAlumno(int idAlumno) {
 
             AlumnoData ad = new AlumnoData(conexion);
             return ad.buscarAlumno(idAlumno);
 
-        }*/
-        
-        
-           public Alumno buscarAlumno(int idAlumno) {
-        Alumno alumno = null;
-        String sql = "SELECT * FROM alumno WHERE activo=1 AND idAlumno LIKE ?";
-
-        //ArrayList<Alumno> alumnos = new ArrayList<>();
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, idAlumno);
-            ResultSet rs = ps.executeQuery();
-            ps.close();
-            while (rs.next()) {
-                alumno = new Alumno();
-                alumno.setIdAlumno(rs.getInt(1));
-                alumno.setApellido(rs.getString(2));
-                alumno.setNombre(rs.getString(3));
-                alumno.setFechaNac(rs.getDate(4).toLocalDate());
-                alumno.setActivo(rs.getBoolean(5));
-                
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de conexion al buscar Alumnos");
         }
-        return alumno;
-    }
 
-    /*    public Materia buscarMateria(int idMateria) {
+        public Materia buscarMateria(int idMateria) {
 
             MateriaData md = new MateriaData(conexion);
             return md.buscarMateriaPorId(idMateria);
 
-        }*/
-           
-           public Materia buscarMateriaPorId(int idMateria) {
-                
-               Materia materia = null; 
-                String sql = "SELECT * FROM materia WHERE idMateria LIKE ?";
-
-            
-
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idMateria);
-            ResultSet rs = ps.executeQuery();
-            ps.close();
-            while (rs.next()) {
-                materia = new Materia();
-
-                materia.setIdMateria(rs.getInt(1));
-                materia.setNombre(rs.getString(2));
-                materia.setAnioMateria(rs.getInt(3));
-                materia.setActivo(rs.getBoolean(4));
-                
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de conexion");
         }
-        return materia;
-
-}
     
     
 }

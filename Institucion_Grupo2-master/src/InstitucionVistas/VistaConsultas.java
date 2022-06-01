@@ -5,7 +5,7 @@
  */
 package InstitucionVistas;
 
-
+import Institucion.controlador.AlumnoData;
 import Institucion.controlador.Conexion;
 import Institucion.controlador.InscripcionData;
 import Institucion.controlador.MateriaData;
@@ -34,10 +34,9 @@ public class VistaConsultas extends javax.swing.JInternalFrame {
     public VistaConsultas() {
         initComponents();
         conexion = new Conexion();
+        listaMaterias = materiaData.listarMaterias();
         materiaData = new MateriaData(conexion);
         modelo = new DefaultTableModel();
-        cargarMaterias();
-        armarCabeceraTabla();
     }
 
     /**
@@ -145,16 +144,12 @@ public class VistaConsultas extends javax.swing.JInternalFrame {
     private void cbMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMateriasActionPerformed
         // TODO add your handling code here:
         
-        DefaultTableModel model;
-        model = (DefaultTableModel) tablaMaterias.getModel();
-        model.setRowCount(0);
-        
-        
-        
         InscripcionData id = new InscripcionData(conexion);
         alumnos = id.getAlumnosEnMateria(((Materia) cbMaterias.getSelectedItem()).getIdMateria());
 
-        
+        DefaultTableModel model = (DefaultTableModel) tablaMaterias.getModel();
+        model.setRowCount(0);
+
         for (Alumno a1 : alumnos) {
             model.addRow(new Object[]{a1.getIdAlumno(), a1.getNombre(), a1.getApellido(), a1.getFechaNac()});
         }
@@ -168,7 +163,7 @@ public class VistaConsultas extends javax.swing.JInternalFrame {
         columnas.add("ID");
         columnas.add("Nombre");
         columnas.add("Appellido");
-        columnas.add("Fecha de Nacimiento");
+        columnas.add("Nota");
         for(Object it:columnas){
         
             modelo.addColumn(it);

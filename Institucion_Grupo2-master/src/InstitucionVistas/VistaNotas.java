@@ -8,8 +8,10 @@ package InstitucionVistas;
 import Institucion.controlador.AlumnoData;
 import Institucion.controlador.Conexion;
 import Institucion.controlador.InscripcionData;
+import Institucion.controlador.MateriaData;
 import Institucion.modelo.Alumno;
 import Institucion.modelo.Inscripcion;
+import Institucion.modelo.Materia;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,14 +21,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Macarena
  */
 public class VistaNotas extends javax.swing.JInternalFrame {
-    private AlumnoData ad;
-    private InscripcionData id;
-    private Conexion conexion;       
+    
+    private AlumnoData alumnoData;
+    private Conexion conexion;
     private ArrayList <Alumno> listaAlumnos;
     private DefaultTableModel modelo;
-    //private InscripcionData inscripcionData;
-    private ArrayList<Inscripcion> inscripciones;
+    private InscripcionData inscripcionData;
     
+    
+    private ArrayList<Inscripcion> inscripciones;
     
 
     /**
@@ -35,15 +38,14 @@ public class VistaNotas extends javax.swing.JInternalFrame {
     public VistaNotas() {
         initComponents();
         conexion = new Conexion();
-        ad = new AlumnoData(conexion);
-        id = new InscripcionData(conexion);
-        listaAlumnos = ad.listarAlumnos();
-        inscripciones = id.listarInscripcionesXAlumno(0);
-        modelo = new DefaultTableModel();
+        alumnoData = new AlumnoData(conexion);
+        listaAlumnos = alumnoData.listarAlumnos();
+        modelo = new DefaultTableModel();   
         armarCabeceraTabla();
-        //inscripcionData = new InscripcionData(conexion);
-        cargarNotas();
+        inscripcionData = new InscripcionData(conexion);
         
+        
+        cargarNotas();
     }
 
     /**
@@ -94,6 +96,7 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         botonGuardar.setForeground(new java.awt.Color(0, 0, 153));
         botonGuardar.setText("Guardar");
         botonGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonGuardar.setEnabled(false);
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarActionPerformed(evt);
@@ -210,6 +213,13 @@ public class VistaNotas extends javax.swing.JInternalFrame {
         tablaMaterias.setModel(modelo);
      }
      
+     private void borrarFilasTabla(){
+        int a = modelo.getRowCount() - 1;
+        for (int i= a ; i>=0; i--){
+            modelo.removeRow(i);
+        }
+        //Borra las filas de abajo par arriba
+    }
     
      
      private void cargarNotas(){
