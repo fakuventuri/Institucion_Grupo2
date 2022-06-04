@@ -145,12 +145,12 @@ public class InscripcionData {
     
     
     public ArrayList<Materia> getMateriasNoInscriptas(int idAlumno) {
-        String sql = "SELECT materia.idMateria, nombre, anioMateria, activo FROM materia , inscripcion WHERE materia.idMateria NOT in (select m.idMateria from inscripcion i, materia m where i.idMateria = m.idMateria and i.idAlumno = ?);";
+        String sql = "SELECT materia.* FROM materia WHERE materia.idMateria NOT in (select materia.idMateria from inscripcion, materia where inscripcion.idMateria = materia.idMateria and inscripcion.idAlumno = ?)";
                 ArrayList<Materia> materiasNoInscriptas = new ArrayList<>();
 
         try {
             ResultSet rs;
-            try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, idAlumno);
                 rs = ps.executeQuery();
                 }

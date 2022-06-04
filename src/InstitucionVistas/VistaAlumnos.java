@@ -100,7 +100,6 @@ public class VistaAlumnos extends javax.swing.JInternalFrame {
         botonGuardar.setForeground(new java.awt.Color(0, 0, 153));
         botonGuardar.setText("Guardar");
         botonGuardar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonGuardar.setEnabled(false);
         botonGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonGuardarActionPerformed(evt);

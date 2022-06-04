@@ -94,7 +94,7 @@ public class AlumnoData {
     
     public Alumno buscarAlumno(int idAlumno) {
         Alumno alumno = null;
-        String sql = "SELECT * FROM alumno WHERE idAlumnoo LIKE ?";
+        String sql = "SELECT * FROM alumno WHERE idAlumno LIKE ?";
 
         ArrayList<Alumno> alumnos = new ArrayList<>();
 
